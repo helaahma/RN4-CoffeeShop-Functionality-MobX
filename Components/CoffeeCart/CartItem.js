@@ -2,6 +2,8 @@ import React from "react";
 
 // NativeBase Components
 import { Text, Left, Body, Right, Button, ListItem, Icon } from "native-base";
+//Store
+import cartStore from "../../store/cartStore";
 
 const CartItem = ({ item }) => {
   return (
@@ -13,10 +15,11 @@ const CartItem = ({ item }) => {
         </Text>
       </Left>
       <Body>
-        <Text style={{ color: "white" }}>{item.quantity}</Text>
+        <Text style={{ color: "white" }}>{item.quant}</Text>
       </Body>
       <Right>
-        <Button transparent>
+        {/* the mistake was that i passed the argument item onpress{(item)=>..} */}
+        <Button transparent onPress={() => cartStore.removeItemFromCart(item)}>
           <Icon name="trash" style={{ color: "white", fontSize: 21 }} />
         </Button>
       </Right>

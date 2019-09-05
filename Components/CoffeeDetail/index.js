@@ -21,11 +21,13 @@ import styles from "./styles";
 // Store
 import coffeeStore from "../../store/coffeeStore";
 import CartButton from "../Buttons/CartButton";
+import cartStore from "../../store/cartStore";
 
 class CoffeeDetail extends Component {
   state = {
     drink: "Cappuccino",
-    option: "Small"
+    option: "Small",
+    quant: 1
   };
 
   changeDrink = value => {
@@ -38,6 +40,10 @@ class CoffeeDetail extends Component {
     this.setState({
       option: value
     });
+  };
+
+  handleAdd = () => {
+    cartStore.addItemCart(this.state);
   };
 
   render() {
@@ -91,7 +97,7 @@ class CoffeeDetail extends Component {
               </Picker>
             </Body>
           </ListItem>
-          <Button full danger>
+          <Button full danger onPress={this.handleAdd}>
             <Text>Add</Text>
           </Button>
         </List>
