@@ -1,4 +1,4 @@
-import { decorate, observable } from "mobx";
+import { decorate, observable, computed } from "mobx";
 
 class CartStore {
   items = [];
@@ -17,9 +17,16 @@ class CartStore {
   removeItemFromCart = itemA => {
     this.items = this.items.filter(itemB => itemA !== itemB);
   };
+
   checkoutCart = () => {
     this.items = [];
   };
+  //Review
+  get quantity() {
+    let total = 0;
+    this.items.forEach(item => (total += item.quantity));
+    return total;
+  }
   //   incrementQuant = () => {
   //     this.items.find(item =>
   //       item.quant.length !== 0 ? item.quant === item.quant.length + 1 : ""
@@ -27,7 +34,8 @@ class CartStore {
   //};
 }
 checkoutCart = decorate(CartStore, {
-  items: observable
+  items: observable,
+  quantity: computed
 });
 const cartStore = new CartStore();
 
